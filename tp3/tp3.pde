@@ -16,7 +16,7 @@ void draw() {
   background(255);
   image(referencia, 0, 0);
   
-  // Constantes filas/columnas 
+  // Cantidad filas/columnas 
   final int COLUMNAS = 8;
   final int FILAS = 8;
   
@@ -30,12 +30,12 @@ void draw() {
   dibujarIlusion(400, 0, tam, offset, color1, color2, COLUMNAS, FILAS, oscilacion);
 }
 
-// Calculamos tamaño de celda para  uniforme de las celdas cuadradas
+// Calculamos tamaño de celda  4 parametros 
 int calcularTamCelda(int anchoImg, int altoImg, int columnas, int filas) {
   return int(min(anchoImg / (float)columnas, altoImg / (float)filas));
 }
 
-//  La oscilación basada en tiempo usando funciones matematicas
+// Funcion c on parametro q devuelve valor mov.
 float calcularOscilacion(float inicio, int tamCelda, boolean activo) {
   if (!activo) return 0;
   float tiempoTranscurrido = millis() - inicio;
