@@ -1,3 +1,4 @@
+// La pc no me detecta la entrada del microfono ni la camara. Intente grabar con la app DroidCam pero sale el video sin sonido. Cualquier cosa puede preguntarme en clases o veo de como poder grabarlo
 PImage referencia;
 color color1 = color(255, 255, 0);  // Amarillo 
 color color2 = color(0);             // Negro 
