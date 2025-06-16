@@ -1,10 +1,10 @@
 // La pc no me detecta la entrada del microfono ni la camara. Intente grabar con la app DroidCam pero sale el video sin sonido. Cualquier cosa puede preguntarme en clases o veo de como poder grabarlo
 PImage referencia;
-color color1 = color(255, 255, 0);  // Amarillo 
+color color1 = color(255, 255, 0);  // Amarillo, variables determinan color inicial
 color color2 = color(0);             // Negro 
-int offset;
-boolean autoMovimiento = false;
-float tiempoInicio;
+int offset;                        // variable boolean q decide si se activa el movimiento automático
+boolean autoMovimiento = false;    // ajusta el desplazamiento entre filas
+float tiempoInicio;               //  guarda tiempo inicial del movimiento 
 
 void setup() {
   size(800, 400);
@@ -21,13 +21,13 @@ void draw() {
   final int COLUMNAS = 8;
   final int FILAS = 8;
   
-  // Tamaño de celda
+  // funcion para calcular el tamaño de celda (cuadrada) 4 parametros
   int tam = calcularTamCelda(referencia.width, referencia.height, COLUMNAS, FILAS);
   
-  // Oscilación basada en tiempo transcurrido
+  // funcion q devuelve un valor que simula movimiento. 3 parametros
   float oscilacion = calcularOscilacion(tiempoInicio, tam, autoMovimiento);
   
-  // Ilusión óptica
+  // ilusión óptica dibuja la cuadricula enteras en a de parametros de color, movimiento, posicion, etc
   dibujarIlusion(400, 0, tam, offset, color1, color2, COLUMNAS, FILAS, oscilacion);
 }
 
@@ -54,6 +54,7 @@ void dibujarIlusion(
     int filas,
     float oscilacion
 ) {
+// uso dos ciclos for anidados dentro de la función pasa cada celda de la cuadrícula, fila por fila y columna por columna con sus colores
   for (int fila = 0; fila < filas; fila++) {
     for (int col = 0; col < columnas; col++) {
       // Posición con efecto de oscilación
@@ -71,12 +72,12 @@ void dibujarIlusion(
     }
   }
 }
-
+// estructuras de control q permiten movimiento de la fila segun la posicion del mouse en el eje Y
 void mouseMoved() {
   int tam = calcularTamCelda(referencia.width, referencia.height, 8, 8);
   offset = int(map(mouseY, 0, height, 0, tam / 2));
 }
-// estructuras boolean q permiten el cambio de color.
+// estructuras boolean q permiten el cambio de color, y el reinicio al valor inicial amarillo/negro, desplazamiento automatico con m
 void keyPressed() {
   if (key == 'r' || key == 'R') {
     // Reiniciar valores
@@ -95,7 +96,7 @@ void keyPressed() {
     color2 = color(255, 0, 255);   // Magenta
   }
 }
-
+// permite cambio de color cuando presiono click derecho o izq
 void mousePressed() {
   if (mouseButton == LEFT) {
     color1 = color(255, 105, 180); // Rosa
