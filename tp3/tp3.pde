@@ -1,99 +1,84 @@
 // https://youtu.be/sUdTrb6zA9o
-PImage referencia;
+PImage imagen;
 
 void setup() {
   size(800, 400);
-  referencia = loadImage("F_32.jpg");
-  referencia.resize(400, 400);
+  imagen = loadImage("F_32.jpg");
+  imagen.resize(400, 400);
 }
-
 void draw() {
   background(255);
-  image(referencia, 0, 0);
-
+  image(imagen, 0, 0);  
   int columnas = 8;
   int filas = 8;
-  int tam = calcularTamanio(400, 400, columnas, filas);  // función que retorna
-  int desplazamiento = calcularDesplazamiento(mouseY, height, tam);
+  int tam = calcularTamanio(400, 400, columnas, filas);
+  int desplazamiento = moverFila(mouseY, height, tam);
 
-  // colores en función de posición o mouse 
-  color c1 = elegirColorPrincipal();
-  color c2 = elegirColorSecundario();
+  color c1 = colorPrimario();
+  color c2 = colorSecundario();
 
-  dibujarCuadricula(400, 0, tam, desplazamiento, c1, c2, columnas, filas);
+  // inclinación de filas
+  dibujarCuadrosInclinados(400, 0, tam, desplazamiento, c1, c2, columnas, filas);
 }
 
-// función con retorno
 int calcularTamanio(int ancho, int alto, int col, int fil) {
   return int(min(ancho / float(col), alto / float(fil)));
 }
 
-//  función con retorno usando map
-int calcularDesplazamiento(int mouseY, int altoPantalla, int tamano) {
-  return int(map(mouseY, 0, altoPantalla, 0, tamano / 2));
+int moverFila(int mouseY, int alto, int tam) {
+  return int(map(mouseY, 0, alto, 0, tam / 2));
 }
+void dibujarCuadrosInclinados(float xIni, float yIni, int tam, int desp, color col1, color col2, int col, int fil) {
+  for (int f = 0; f < fil; f++) {
+    for (int c = 0; c < col; c++) {
+      float mover = (f % 2 == 0) ? 0 : desp;
+      float x = xIni + c * tam + mover;
+      float y = yIni + f * tam;
+      float d = dist(c, f, col / 2.0, fil / 2.0);
+      float maxAngulo = QUARTER_PI / 5;  
+      float anguloBase = map(d, 0, sqrt(col * col + fil * fil), -maxAngulo, maxAngulo);
 
-// función propia con parámetros
-void dibujarCuadricula(float xInicio, float yInicio, int tam, int desp, color c1, color c2, int col, int fil) {
-  for (int fila = 0; fila < fil; fila++) {
-    for (int columna = 0; columna < col; columna++) {
-      float mover = (fila % 2 == 0) ? 0 : desp;
-      float x = xInicio + columna * tam + mover;
-      float y = yInicio + fila * tam;
+      float factorFila = 1 + 0.1 * f;  
+      float angulo = anguloBase * factorFila;
 
-      if ((fila + columna) % 2 == 0) {
-        fill(c1);
+      push();
+      translate(x + tam / 2, y + tam / 2);
+      rotate(angulo);
+      if ((f + c) % 2 == 0) {
+        fill(col1);
       } else {
-        fill(c2);
+        fill(col2);
       }
-
       noStroke();
-      rect(x, y, tam, tam);
+      rectMode(CENTER);
+      rect(0, 0, tam, tam);
+      pop();
     }
   }
 }
-
-// determinar color según tecla
-color elegirColorPrincipal() {
+color colorPrimario() {
   if (keyPressed) {
-    if (key == 'r' || key == 'R') {
-      return color(255, 255, 0);  // amarillo
-    } else if (keyCode == UP) {
-      return color(50, 205, 50);  // verde
-    } else if (keyCode == DOWN) {
-      return color(0, 255, 255);  // celeste
-    }
+    if (key == 'r' || key == 'R') return color(255, 255, 0); //amarillo
+    if (keyCode == UP) return color(50, 205, 50); //verde
+    if (keyCode == DOWN) return color(0, 255, 255);//celeste
   }
-
   if (mousePressed) {
-    if (mouseButton == LEFT) {
-      return color(255, 105, 180);  // rosa
-    } else if (mouseButton == RIGHT) {
-      return color(0, 102, 255);    // azul
-    }
+    if (mouseButton == LEFT) return color(255, 105, 180); //rosa
+    if (mouseButton == RIGHT) return color(0, 102, 255); //azul
   }
-
-  return color(255, 255, 0);  
+  return color(255, 255, 0); 
 }
 
-color elegirColorSecundario() {
+color colorSecundario() {
   if (keyPressed) {
-    if (key == 'r' || key == 'R') {
-      return color(0);              // negro
-    } else if (keyCode == UP) {
-      return color(128, 0, 128);    // morado
-    } else if (keyCode == DOWN) {
-      return color(255, 0, 255);    // magenta
-    }
+    if (key == 'r' || key == 'R') return color(0); //negro
+    if (keyCode == UP) return color(128, 0, 128); //morado
+    if (keyCode == DOWN) return color(255, 0, 255); //magenta
   }
-
   if (mousePressed) {
-    if (mouseButton == LEFT) {
-      return color(200, 0, 0);      // rojo oscuro
-    } else if (mouseButton == RIGHT) {
-      return color(255, 165, 0);    // naranja
-    }
+    if (mouseButton == LEFT) return color(200, 0, 0); //rojo
+    if (mouseButton == RIGHT) return color(255, 165, 0); //naranja
   }
-
-  return color(0);  
+  return color(0);
 }
+
