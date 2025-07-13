@@ -1,6 +1,7 @@
 // https://youtu.be/sUdTrb6zA9o
 // https://youtu.be/JCCxhi8h8Sk?si=wklhZpJsk-vOSQH7
 PImage imagen;
+
 void setup() {
   size(800, 400);
   imagen = loadImage("F_32.jpg");
@@ -8,13 +9,7 @@ void setup() {
 }
 
 void draw() {
-  for (int i = 0; i < width; i++) {
-    float mezcla = map(i, 0, width, 0, 1);
-    color fondo = lerpColor(color(240), color(180), mezcla);
-    stroke(fondo);
-    line(i, 0, i, height);
-  }
-
+  background(255);
   image(imagen, 0, 0);
 
   int columnas = 8;
