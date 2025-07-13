@@ -16,7 +16,7 @@ void draw() {
   int filas = 8;
   int tam = calcularTamanio(400, 400, columnas, filas);
   int desplazamiento = moverFila(mouseY, height, tam);
-  color c1 = colorPrincipal();
+  color c1 = colorPrimario();
   color c2 = colorSecundario();
   dibujarCuadrosInclinados(400, 0, tam, desplazamiento, c1, c2, columnas, filas);
 }
@@ -54,7 +54,7 @@ int moverFila(int mouseY, int alto, int tam) {
   return int(map(mouseY, 0, alto, 0, tam / 2));
 }
 
-color colorPrincipal() {
+color colorPrimario() {
   if (keyPressed) {
     if (key == 'r' || key == 'R') return color(255, 255, 0);
     if (keyCode == UP) return color(50, 205, 50);
