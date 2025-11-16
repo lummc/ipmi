@@ -3,12 +3,12 @@ let imgStella, imgFlora;
 let imgIcy, imgDarcy, imgStormy, imgMonstruo1;
 let imgEnemigo2a, imgEnemigo2b, imgEnemigo2c, imgDarkar;
 let imgRayo, imgHoja;
-let fondoAlfea, fondoOscuro;
+let fondoAlfea, fondoOscuro, fondoVictoria, fondoDerrota, fondoInicio, fondoCreditos, fondoInstrucciones; 
 let fuenteTitulos;
 let fuenteTexto;
 let musicaMenu;     
 let musicaNivel; 
-let sonidos = [];
+
 
 function preload() {
     imgStella = loadImage('data/stella.png');
@@ -76,3 +76,4 @@ function keyPressed() {
         juego.reiniciar();
     }
 }
+
