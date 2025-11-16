@@ -7,7 +7,7 @@ class Enemigo {
         this.ancho = 110;
         this.alto = 110;
         this.velocidad = 1 + nivel * 0.5;
-        this.vida = 3; // Nivel 1 = 1 vida, Nivel 2 = 2 vidas
+        this.vida = 3; 
         this.direccion = 1;
     }
 
@@ -58,3 +58,4 @@ class Enemigo {
         this.vida -= cantidad;
     }
 }
+
