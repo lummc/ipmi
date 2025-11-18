@@ -12,16 +12,16 @@ class Enemigo {
     }
 
     actualizar() {
-        // Movimiento vertical
+        // mvimiento vertical
         this.y += this.velocidad * this.direccion;
         
-        // Rebotar en bordes
+        // rebotar bordes
         if (this.y <= 0 || this.y >= height - this.alto) {
             this.direccion *= -1;
         }
     }
     
-  dibujar() {
+dibujar() {
     let img = null;
 
     if (this.tipo == "icy") {
@@ -54,9 +54,12 @@ class Enemigo {
     text("HP:" + this.vida, this.x + this.ancho / 2, this.y + this.alto + 10);
 }
     
+    disparar() {
+        return new ProyectilEnemigo(this.x, this.y + this.alto/2 - 5, this.tipo);
+    }
+    
     recibirDanio(cantidad) {
         this.vida -= cantidad;
     }
 }
-
 
