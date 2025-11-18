@@ -21,41 +21,42 @@ class Enemigo {
         }
     }
     
-   dibujar() {
+  dibujar() {
     let img = null;
-    
-    // Seleccionar imagen según tipo
-    switch(this.tipo) {
-        case "icy": img = imgIcy; break;
-        case "darcy": img = imgDarcy; break;
-        case "stormy": img = imgStormy; break;
-        case "monstruo1": img = imgMonstruo1; break;
-        case "enemigo2a": img = imgEnemigo2a; break;
-        case "enemigo2b": img = imgEnemigo2b; break;
-        case "enemigo2c": img = imgEnemigo2c; break;
-        case "darkar": img = imgDarkar; break;  
-      
+
+    if (this.tipo == "icy") {
+        img = imgIcy;
+    } else if (this.tipo == "darcy") {
+        img = imgDarcy;
+    } else if (this.tipo == "stormy") {
+        img = imgStormy;
+    } else if (this.tipo == "monstruo1") {
+        img = imgMonstruo1;
+    } else if (this.tipo == "enemigo2a") {
+        img = imgEnemigo2a;
+    } else if (this.tipo == "enemigo2b") {
+        img = imgEnemigo2b;
+    } else if (this.tipo == "enemigo2c") {
+        img = imgEnemigo2c;
+    } else if (this.tipo == "darkar") {
+        img = imgDarkar;
     }
-    
+
     if (img) {
         image(img, this.x, this.y, this.ancho, this.alto);
-    } 
-    
- 
+    }
+
     fill(255);
     stroke(0);
     strokeWeight(1);
     textAlign(CENTER, CENTER);
     textSize(12);
-    text("HP:" + this.vida, this.x + this.ancho/2, this.y + this.alto + 10);
+    text("HP:" + this.vida, this.x + this.ancho / 2, this.y + this.alto + 10);
 }
-    
-    disparar() {
-        return new ProyectilEnemigo(this.x, this.y + this.alto/2 - 5, this.tipo);
-    }
     
     recibirDanio(cantidad) {
         this.vida -= cantidad;
     }
 }
+
 
